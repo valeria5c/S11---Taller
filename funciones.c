@@ -9,7 +9,8 @@ int cantidadLibros = 0;
 // ----------------------- MENU -----------------------
 int menu()
 {
-    int opcion, valido;
+    int opcion;
+    int valido;
 
     do
     {
@@ -28,8 +29,7 @@ int menu()
         if (valido != 1 || opcion < 1 || opcion > 7)
         {
             printf("Opcion invalida. Intente nuevamente.\n");
-            while (getchar() != '\n')
-                ;
+            while (getchar() != '\n'); //Limpiar el espacio de memoria
         }
 
     } while (valido != 1 || opcion < 1 || opcion > 7);
@@ -40,7 +40,8 @@ int menu()
 // ----------------------- VALIDAR ENTEROS -----------------------
 int ValidacionNumeros(const char mensaje[])
 {
-    int numero, valido;
+    int numero;
+    int valido;
 
     do
     {
@@ -50,8 +51,7 @@ int ValidacionNumeros(const char mensaje[])
         if (valido != 1 || numero < 0)
         {
             printf("Entrada invalida. Intente nuevamente.\n");
-            while (getchar() != '\n')
-                ;
+            while (getchar() != '\n');
         }
 
     } while (valido != 1 || numero < 0);
@@ -71,11 +71,15 @@ int preguntarRepetir(const char *mensaje)
         opc = toupper(opc);
 
         if (opc == 'S')
+        {
             return 1;
-        if (opc == 'N')
+        } else if (opc == 'N')
+        {
             return 0;
-
-        printf("Opcion invalida.\n");
+        } else
+        {
+            printf("Opcion invalida.\n");
+        }
 
     } while (1);
 }
@@ -126,8 +130,7 @@ void registrarLibro()
     fflush(stdin);
     leerCadena(libros[cantidadLibros].autor, 50);
 
-    libros[cantidadLibros].anio_publicacion =
-        ValidacionNumeros("Ingrese anio de publicacion: ");
+    libros[cantidadLibros].anio_publicacion = ValidacionNumeros("Ingrese anio de publicacion: ");
 
     int estado;
     do
@@ -135,9 +138,12 @@ void registrarLibro()
         estado = ValidacionNumeros("Ingrese estado (1 = Disponible, 0 = Prestado): ");
 
         if (estado == 0 || estado == 1)
+        {
             break;
-
-        printf("Estado invalido. Solo 0 o 1.\n");
+        }else
+        {
+            printf("Estado invalido. Solo 0 o 1.\n");
+        }
 
     } while (1);
 
@@ -154,7 +160,7 @@ void mostrarLibros()
 
     for (int i = 0; i < cantidadLibros; i++)
     {
-        printf("\n%d\t%d\t%s\t\t\t%s\t\t%d\t%s\n",
+        printf("\n%d\t%d\t%s\t\t%s\t\t%d\t%s\n",
                i + 1,
                libros[i].id,
                libros[i].titulo,
@@ -184,16 +190,21 @@ void buscarPorTitulo(const char *titulo)
     }
 
     if (!encontrado)
+    {
         printf("Libro no encontrado.\n");
+    }
 }
 
 // --------------------- BUSCAR POR ID ---------------------------
 int buscarPorID(int id)
 {
     for (int i = 0; i < cantidadLibros; i++)
+    {
         if (libros[i].id == id)
+        {
             return i;
-
+        }
+    }
     return -1;
 }
 
@@ -275,4 +286,5 @@ void leerCadena(char *cadena, int n)
     {
         cadena[len] = '\0';
     }
+
 }
