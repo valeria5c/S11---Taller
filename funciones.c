@@ -35,7 +35,8 @@ int menu()
         {
             printf("Entrada invalida. Intente nuevamente.\n");
             opcionValida = 0;
-            while (getchar() != '\n');  // Limpiar espacio de memoria
+            while (getchar() != '\n')
+                ; // Limpiar espacio de memoria
         }
         else if (opcion < 1 || opcion > 7)
         {
@@ -54,7 +55,6 @@ int menu()
     return opcion;
 }
 
-
 // ----------------------- VALIDAR ENTEROS -----------------------
 int ValidacionNumeros(const char mensaje[])
 {
@@ -70,7 +70,8 @@ int ValidacionNumeros(const char mensaje[])
         if (valido != 1 || numero < 0)
         {
             printf("Entrada invalida. Intente nuevamente.\n");
-            while (getchar() != '\n');  // Limpia buffer
+            while (getchar() != '\n')
+                ; // Limpia buffer
         }
 
     } while (valido != 1 || numero < 0);
@@ -87,7 +88,7 @@ int preguntarRepetir(const char *mensaje)
     {
         printf("%s (s/n): ", mensaje);
         scanf(" %c", &opc);
-        opc = toupper(opc);  // Convierte a mayúscula para facilitar la comparación
+        opc = toupper(opc); // Convierte a mayúscula para facilitar la comparación
 
         if (opc == 'S')
         {
@@ -158,7 +159,7 @@ void registrarLibro()
     leerCadena(libros[cantidadLibros].autor, 50);
 
     // Año de publicación
-    libros[cantidadLibros].anio_publicacion = ValidacionNumeros("Ingrese anio de publicacion: ");
+    libros[cantidadLibros].anio_publicacion = ValidarAnio("Ingrese anio de publicacion: ");
 
     // Estado del libro (0 o 1)
     int estado;
@@ -179,7 +180,7 @@ void registrarLibro()
 
     libros[cantidadLibros].estado = estado;
 
-    cantidadLibros++;  // Incrementa la cantidad de libros registrados
+    cantidadLibros++; // Incrementa la cantidad de libros registrados
     printf("Libro registrado exitosamente.\n");
 }
 
@@ -235,10 +236,10 @@ int buscarPorID(int id)
     {
         if (libros[i].id == id)
         {
-            return i;   // Devuelve la posición del libro
+            return i; // Devuelve la posición del libro
         }
     }
-    return -1;  // No encontrado
+    return -1; // No encontrado
 }
 
 void buscarPorID_mostrar(int id)
@@ -317,7 +318,7 @@ void eliminarLibro(int id)
 // ----------------------- LEER CADENA ---------------------------
 void leerCadena(char *cadena, int n)
 {
-    fgets(cadena, n, stdin);   // Lee una línea completa incluyendo espacios
+    fgets(cadena, n, stdin); // Lee una línea completa incluyendo espacios
     int len = strlen(cadena) - 1;
 
     // Reemplaza el salto de línea por fin de cadena
@@ -325,4 +326,22 @@ void leerCadena(char *cadena, int n)
     {
         cadena[len] = '\0';
     }
+}
+
+// Validar Año
+int ValidarAnio(const char mensaje[])
+{
+    int anio;
+
+    do {
+        anio = ValidacionNumeros(mensaje);
+
+        // Validación de rangos realistas
+        if (anio >= 1000 && anio <= 2025) {
+            return anio;
+        }
+
+        printf("Año inválido. Debe estar entre 1000 y 2025.\n");
+
+    } while (1);
 }
