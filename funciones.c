@@ -341,7 +341,7 @@ int ValidarAnio(const char mensaje[])
             return anio;
         }
 
-        printf("Año inválido. Debe estar entre 1000 y 2025.\n");
+        printf("Anio invalido. Debe estar entre 1000 y 2025.\n");
 
     } while (1);
 }
