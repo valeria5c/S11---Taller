@@ -15,6 +15,7 @@ int menu();
 
 int ValidacionNumeros(const char mensaje[]);
 int preguntarRepetir(const char *mensaje);
+int ValidarAnio(const char mensaje[]);
 
 void registrarLibro();
 void mostrarLibros();
