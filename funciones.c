@@ -13,10 +13,12 @@ int menu()
 {
     int opcion;
     int valido;
+    int opcionValida;
 
     do
     {
-        // Muestra las opciones del menú principal
+        opcionValida = 1; // Asumimos que será válida, y luego verificamos
+
         printf("\nSISTEMA DE LIBRERIA\n");
         printf("1. Registrar Libro\n");
         printf("2. Mostrar Libros\n");
@@ -25,23 +27,33 @@ int menu()
         printf("5. Actualizar Estado del Libro\n");
         printf("6. Eliminar Libro\n");
         printf("7. Salir\n");
-        printf("Seleccione una opcion: ");
-
-        // Lee la opción ingresada
+        printf("\nSeleccione una opcion: ");
         valido = scanf("%d", &opcion);
 
-        // Valida que sea un entero y que esté dentro del rango permitido
-        if (valido != 1 || opcion < 1 || opcion > 7)
+        // Validar entrada numérica
+        if (valido != 1)
         {
-            printf("Opcion invalida. Intente nuevamente.\n");
-            // Limpia el buffer para evitar bucles infinitos
-            while (getchar() != '\n');
+            printf("Entrada invalida. Intente nuevamente.\n");
+            opcionValida = 0;
+            while (getchar() != '\n');  // Limpiar espacio de memoria
+        }
+        else if (opcion < 1 || opcion > 7)
+        {
+            printf("Opcion fuera de rango. Intente nuevamente.\n");
+            opcionValida = 0;
+        }
+        else if (cantidadLibros == 0 && (opcion >= 2 && opcion <= 6))
+        {
+            printf("\nNo hay libros registrados.\n"
+                   "Debe registrar al menos un libro antes de usar esta opcion.\n");
+            opcionValida = 0;
         }
 
-    } while (valido != 1 || opcion < 1 || opcion > 7);
+    } while (!opcionValida);
 
     return opcion;
 }
+
 
 // ----------------------- VALIDAR ENTEROS -----------------------
 int ValidacionNumeros(const char mensaje[])
@@ -314,4 +326,3 @@ void leerCadena(char *cadena, int n)
         cadena[len] = '\0';
     }
 }
-
