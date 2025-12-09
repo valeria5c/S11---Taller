@@ -44,6 +44,8 @@ int main() {
 
             case 6:
                 do {
+                    printf("\n=== LISTA DE LIBROS REGISTRADOS ===\n");
+                    mostrarLibros();   // Mostramos la tabla antes de pedir el ID
                     int id = ValidacionNumeros("Ingrese ID del libro a eliminar: ");
                     eliminarLibro(id);
                 } while (preguntarRepetir("Desea eliminar otro libro"));
